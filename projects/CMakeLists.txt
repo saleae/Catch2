@@ -123,6 +123,8 @@ set(INTERNAL_HEADERS
         ${HEADER_DIR}/internal/catch_option.hpp
         ${HEADER_DIR}/internal/catch_output_redirect.h
         ${HEADER_DIR}/internal/catch_platform.h
+        ${HEADER_DIR}/internal/catch_polyfills.hpp
+        ${HEADER_DIR}/internal/catch_preprocessor.hpp
         ${HEADER_DIR}/internal/catch_random_number_generator.h
         ${HEADER_DIR}/internal/catch_reenable_warnings.h
         ${HEADER_DIR}/internal/catch_reporter_registrars.hpp
@@ -153,6 +155,7 @@ set(INTERNAL_HEADERS
         ${HEADER_DIR}/internal/catch_to_string.hpp
         ${HEADER_DIR}/internal/catch_tostring.h
         ${HEADER_DIR}/internal/catch_totals.h
+        ${HEADER_DIR}/internal/catch_type_traits.hpp
         ${HEADER_DIR}/internal/catch_uncaught_exceptions.h
         ${HEADER_DIR}/internal/catch_user_interfaces.h
         ${HEADER_DIR}/internal/catch_version.h
@@ -196,6 +199,7 @@ set(IMPL_SOURCES
         ${HEADER_DIR}/internal/catch_output_redirect.cpp
         ${HEADER_DIR}/internal/catch_registry_hub.cpp
         ${HEADER_DIR}/internal/catch_interfaces_reporter.cpp
+        ${HEADER_DIR}/internal/catch_polyfills.cpp
         ${HEADER_DIR}/internal/catch_random_number_generator.cpp
         ${HEADER_DIR}/internal/catch_reporter_registry.cpp
         ${HEADER_DIR}/internal/catch_result_type.cpp
@@ -303,7 +307,7 @@ if ( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
 endif()
 if ( CMAKE_CXX_COMPILER_ID MATCHES "MSVC" )
     STRING(REGEX REPLACE "/W[0-9]" "/W4" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS}) # override default warning level
-    target_compile_options( SelfTest PRIVATE /w44265 /w44061 /w44062 )
+    target_compile_options( SelfTest PRIVATE /w44265 /w44061 /w44062 /w45038 )
     if (CATCH_ENABLE_WERROR)
         target_compile_options( SelfTest PRIVATE /WX)
     endif()

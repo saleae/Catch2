@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Catch name="<exe-name>">
+  <Randomness seed="1"/>
   <Group name="<exe-name>">
     <TestCase name="# A test name that starts with a #" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
       <OverallResult success="true"/>
@@ -128,6 +129,17 @@
       <OverallResult success="true"/>
     </TestCase>
     <TestCase name="#1245" tags="[compilation]" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="#1403" tags="[compilation]" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
+        <Original>
+          h1 == h2
+        </Original>
+        <Expanded>
+          [1403 helper] == [1403 helper]
+        </Expanded>
+      </Expression>
       <OverallResult success="true"/>
     </TestCase>
     <TestCase name="#748 - captures with unexpected exceptions" tags="[!shouldfail][!throws][.][failing]" filename="projects/<exe-name>/UsageTests/Exception.tests.cpp" >
@@ -1335,6 +1347,72 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that fails - double" tags="[.][class][failing][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 2
+        </Original>
+        <Expanded>
+          1.0 == 2
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that fails - float" tags="[.][class][failing][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 2
+        </Original>
+        <Expanded>
+          1.0f == 2
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that fails - int" tags="[.][class][failing][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 2
+        </Original>
+        <Expanded>
+          1 == 2
+        </Expanded>
+      </Expression>
+      <OverallResult success="false"/>
+    </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that succeeds - double" tags="[class][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 1
+        </Original>
+        <Expanded>
+          1.0 == 1
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that succeeds - float" tags="[class][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 1
+        </Original>
+        <Expanded>
+          1.0f == 1
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="A TEMPLATE_TEST_CASE_METHOD based test run that succeeds - int" tags="[class][template]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
+        <Original>
+          Template_Fixture&lt;TestType>::m_a == 1
+        </Original>
+        <Expanded>
+          1 == 1
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="A TEST_CASE_METHOD based test run that fails" tags="[.][class][failing]" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
       <Expression success="false" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Class.tests.cpp" >
         <Original>
@@ -1906,6 +1984,54 @@
           0 == 0
         </Expanded>
       </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="CAPTURE can deal with complex expressions" tags="[capture][messages]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        a := 1
+      </Info>
+      <Info>
+        b := 2
+      </Info>
+      <Info>
+        c := 3
+      </Info>
+      <Info>
+        a + b := 3
+      </Info>
+      <Info>
+        a+b := 3
+      </Info>
+      <Info>
+        c > b := true
+      </Info>
+      <Info>
+        a == 1 := true
+      </Info>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="CAPTURE can deal with complex expressions involving commas" tags="[capture][messages]" filename="projects/<exe-name>/UsageTests/Message.tests.cpp" >
+      <Info>
+        std::vector&lt;int>{1, 2, 3}[0, 1, 2] := 3
+      </Info>
+      <Info>
+        std::vector&lt;int>{1, 2, 3}[(0, 1)] := 2
+      </Info>
+      <Info>
+        std::vector&lt;int>{1, 2, 3}[0] := 1
+      </Info>
+      <Info>
+        (helper_1436&lt;int, int>{12, -12}) := { 12, -12 }
+      </Info>
+      <Info>
+        (helper_1436&lt;int, int>(-12, 12)) := { -12, 12 }
+      </Info>
+      <Info>
+        (1, 2) := 2
+      </Info>
+      <Info>
+        (2, 3) := 3
+      </Info>
       <OverallResult success="true"/>
     </TestCase>
     <TestCase name="Capture and info messages" filename="projects/<exe-name>/UsageTests/ToStringGeneral.tests.cpp" >
@@ -4397,6 +4523,9 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="Optionally static assertions" tags="[compilation]" filename="projects/<exe-name>/UsageTests/Compilation.tests.cpp" >
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="Ordering comparison checks that should fail" tags="[.][failing]" filename="projects/<exe-name>/UsageTests/Condition.tests.cpp" >
       <Expression success="false" type="CHECK" filename="projects/<exe-name>/UsageTests/Condition.tests.cpp" >
         <Original>
@@ -5949,6 +6078,17 @@
       </Expression>
       <OverallResult success="true"/>
     </TestCase>
+    <TestCase name="Predicate matcher can accept const char*" tags="[compilation][matchers]" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+      <Expression success="true" type="REQUIRE_THAT" filename="projects/<exe-name>/UsageTests/Matchers.tests.cpp" >
+        <Original>
+          "foo", Predicate&lt;const char*>([] (const char* const&amp;) { return true; })
+        </Original>
+        <Expanded>
+          "foo" matches undescribed predicate
+        </Expanded>
+      </Expression>
+      <OverallResult success="true"/>
+    </TestCase>
     <TestCase name="Process can be configured on command line" tags="[command-line][config]" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
       <Section name="empty args don't cause a crash" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
         <Expression success="true" type="CHECK" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
@@ -6221,6 +6361,28 @@
           <OverallResults successes="1" failures="0" expectedFailures="0"/>
         </Section>
         <OverallResults successes="1" failures="0" expectedFailures="0"/>
+      </Section>
+      <Section name="reporter" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
+        <Section name="must match one of the available ones" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
+          <Expression success="true" type="CHECK" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
+            <Original>
+              !result
+            </Original>
+            <Expanded>
+              true
+            </Expanded>
+          </Expression>
+          <Expression success="true" type="REQUIRE_THAT" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
+            <Original>
+              result.errorMessage(), Contains("Unrecognized reporter")
+            </Original>
+            <Expanded>
+              "Unrecognized reporter, 'unsupported'. Check available with --list-reporters" contains: "Unrecognized reporter"
+            </Expanded>
+          </Expression>
+          <OverallResults successes="2" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
       </Section>
       <Section name="debugger" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
         <Section name="-b" filename="projects/<exe-name>/IntrospectiveTests/CmdLine.tests.cpp" >
@@ -7640,6 +7802,622 @@ Message from section two
           </Expanded>
         </Expression>
         <OverallResults successes="4" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="TemplateTest: vectors can be sized and resized - float" tags="[template][vector]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing bigger changes size and capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 10
+          </Original>
+          <Expanded>
+            10 == 10
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing smaller changes size but not capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 0
+          </Original>
+          <Expanded>
+            0 == 0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <Section name="We can use the 'swap trick' to reset the capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+            <Original>
+              v.capacity() == 0
+            </Original>
+            <Expanded>
+              0 == 0
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving bigger changes capacity but not size" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving smaller does not change size or capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="TemplateTest: vectors can be sized and resized - int" tags="[template][vector]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing bigger changes size and capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 10
+          </Original>
+          <Expanded>
+            10 == 10
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing smaller changes size but not capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 0
+          </Original>
+          <Expanded>
+            0 == 0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <Section name="We can use the 'swap trick' to reset the capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+            <Original>
+              v.capacity() == 0
+            </Original>
+            <Expanded>
+              0 == 0
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving bigger changes capacity but not size" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving smaller does not change size or capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="TemplateTest: vectors can be sized and resized - std::string" tags="[template][vector]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing bigger changes size and capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 10
+          </Original>
+          <Expanded>
+            10 == 10
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing smaller changes size but not capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 0
+          </Original>
+          <Expanded>
+            0 == 0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <Section name="We can use the 'swap trick' to reset the capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+            <Original>
+              v.capacity() == 0
+            </Original>
+            <Expanded>
+              0 == 0
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving bigger changes capacity but not size" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving smaller does not change size or capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <OverallResult success="true"/>
+    </TestCase>
+    <TestCase name="TemplateTest: vectors can be sized and resized - std::tuple&lt;int,float>" tags="[template][vector]" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing bigger changes size and capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 10
+          </Original>
+          <Expanded>
+            10 == 10
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="resizing smaller changes size but not capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 0
+          </Original>
+          <Expanded>
+            0 == 0
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <Section name="We can use the 'swap trick' to reset the capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+            <Original>
+              v.capacity() == 0
+            </Original>
+            <Expanded>
+              0 == 0
+            </Expanded>
+          </Expression>
+          <OverallResults successes="1" failures="0" expectedFailures="0"/>
+        </Section>
+        <OverallResults successes="3" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving bigger changes capacity but not size" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 10
+          </Original>
+          <Expanded>
+            10 >= 10
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
+      </Section>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.size() == 5
+        </Original>
+        <Expanded>
+          5 == 5
+        </Expanded>
+      </Expression>
+      <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Original>
+          v.capacity() >= 5
+        </Original>
+        <Expanded>
+          5 >= 5
+        </Expanded>
+      </Expression>
+      <Section name="reserving smaller does not change size or capacity" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.size() == 5
+          </Original>
+          <Expanded>
+            5 == 5
+          </Expanded>
+        </Expression>
+        <Expression success="true" type="REQUIRE" filename="projects/<exe-name>/UsageTests/Misc.tests.cpp" >
+          <Original>
+            v.capacity() >= 5
+          </Original>
+          <Expanded>
+            5 >= 5
+          </Expanded>
+        </Expression>
+        <OverallResults successes="2" failures="0" expectedFailures="0"/>
       </Section>
       <OverallResult success="true"/>
     </TestCase>
@@ -11321,7 +12099,7 @@ loose text artifact
       </Section>
       <OverallResult success="true"/>
     </TestCase>
-    <OverallResults successes="1099" failures="123" expectedFailures="21"/>
+    <OverallResults successes="1178" failures="126" expectedFailures="21"/>
   </Group>
-  <OverallResults successes="1099" failures="122" expectedFailures="21"/>
+  <OverallResults successes="1178" failures="125" expectedFailures="21"/>
 </Catch>

@@ -20,6 +20,7 @@
 #include "catch_tostring.h"
 #include "catch_interfaces_config.h"
 #include "catch_context.h"
+#include "catch_polyfills.hpp"
 
 #include <cmath>
 #include <iomanip>
@@ -68,7 +69,7 @@ namespace Detail {
 
 template<typename T>
 std::string fpToString( T value, int precision ) {
-    if (std::isnan(value)) {
+    if (Catch::isnan(value)) {
         return "nan";
     }
 
@@ -205,7 +206,7 @@ std::string StringMaker<bool>::convert(bool b) {
     return b ? "true" : "false";
 }
 
-std::string StringMaker<char>::convert(char value) {
+std::string StringMaker<signed char>::convert(signed char value) {
     if (value == '\r') {
         return "'\\r'";
     } else if (value == '\f') {
@@ -222,8 +223,8 @@ std::string StringMaker<char>::convert(char value) {
         return chstr;
     }
 }
-std::string StringMaker<signed char>::convert(signed char c) {
-    return ::Catch::Detail::stringify(static_cast<char>(c));
+std::string StringMaker<char>::convert(char c) {
+    return ::Catch::Detail::stringify(static_cast<signed char>(c));
 }
 std::string StringMaker<unsigned char>::convert(unsigned char c) {
     return ::Catch::Detail::stringify(static_cast<char>(c));

@@ -2,6 +2,8 @@
 
 # Release notes
 **Contents**<br>
+[2.5.0](#250)<br>
+[2.4.2](#242)<br>
 [2.4.1](#241)<br>
 [2.4.0](#240)<br>
 [2.3.0](#230)<br>
@@ -15,6 +17,50 @@
 [2.0.1](#201)<br>
 [Older versions](#older-versions)<br>
 [Even Older versions](#even-older-versions)<br>
+
+## 2.5.0
+
+### Improvements
+* Added support for templated tests via `TEMPLATE_TEST_CASE` (#1437)
+
+
+### Fixes
+* Fixed compilation of `PredicateMatcher<const char*>` by removing partial specialization of `MatcherMethod<T*>`
+* Listeners now implicitly support any verbosity (#1426)
+* Fixed compilation with Embarcadero builder by introducing `Catch::isnan` polyfill (#1438)
+* Fixed `CAPTURE` asserting for non-trivial captures (#1436, #1448)
+
+
+### Miscellaneous
+* We should now be providing first party Conan support via https://bintray.com/catchorg/Catch2 (#1443)
+* Added new section "deprecations and planned changes" to the documentation
+  * It contains summary of what is deprecated and might change with next major version
+* From this release forward, the released headers should be pgp signed (#430)
+  * KeyID `E29C 46F3 B8A7 5028 6079 3B7D ECC9 C20E 314B 2360`
+  * or https://codingnest.com/files/horenmar-publickey.asc
+
+
+## 2.4.2
+
+### Improvements
+* XmlReporter now also outputs the RNG seed that was used in a run (#1404)
+* `Catch::Session::applyCommandLine` now also accepts `wchar_t` arguments.
+  * However, Catch2 still does not support unicode.
+* Added `STATIC_REQUIRE` macro (#1356, #1362)
+* Catch2's singleton's are now cleaned up even if tests are run (#1411)
+  * This is mostly useful as a FP prevention for users who define their own main.
+* Specifying an invalid reporter via `-r` is now reported sooner (#1351, #1422)
+
+
+### Fixes
+* Stringification no longer assumes that `char` is signed (#1399, #1407)
+  * This caused a `Wtautological-compare` warning.
+* SFINAE for `operator<<` no longer sees different overload set than the actual insertion (#1403)
+
+
+### Contrib
+* `catch_discover_tests` correctly adds tests with comma in name (#1327, #1409)
+* Added a new customization point in how the tests are launched to `catch_discover_tests`
 
 
 ## 2.4.1

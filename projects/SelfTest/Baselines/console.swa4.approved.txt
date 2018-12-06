@@ -3,14 +3,15 @@
 <exe-name> is a <version> host application.
 Run with -? for options
 
+Randomness seeded to: 1
+
 -------------------------------------------------------------------------------
 # A test name that starts with a #
 -------------------------------------------------------------------------------
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   yay
 
@@ -21,14 +22,12 @@ with message:
 Decomposition.tests.cpp:<line number>
 ...............................................................................
 
-Decomposition.tests.cpp:<line number>:
-PASSED:
+Decomposition.tests.cpp:<line number>: PASSED:
   REQUIRE( fptr == 0 )
 with expansion:
   0 == 0
 
-Decomposition.tests.cpp:<line number>:
-PASSED:
+Decomposition.tests.cpp:<line number>: PASSED:
   REQUIRE( fptr == 0l )
 with expansion:
   0 == 0
@@ -39,14 +38,12 @@ with expansion:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( y.v == 0 )
 with expansion:
   0 == 0
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( 0 == y.v )
 with expansion:
   0 == 0
@@ -57,38 +54,32 @@ with expansion:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 == t2 )
 with expansion:
   {?} == {?}
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 != t2 )
 with expansion:
   {?} != {?}
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 < t2 )
 with expansion:
   {?} < {?}
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 > t2 )
 with expansion:
   {?} > {?}
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 <= t2 )
 with expansion:
   {?} <= {?}
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( t1 >= t2 )
 with expansion:
   {?} >= {?}
@@ -99,8 +90,7 @@ with expansion:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 
 -------------------------------------------------------------------------------
 #1238
@@ -108,8 +98,7 @@ PASSED:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( std::memcmp(uarr, "123", sizeof(uarr)) == 0 )
 with expansion:
   0 == 0
@@ -117,8 +106,7 @@ with messages:
   uarr := "123"
   sarr := "456"
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( std::memcmp(sarr, "456", sizeof(sarr)) == 0 )
 with expansion:
   0 == 0
@@ -132,8 +120,18 @@ with messages:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
+
+-------------------------------------------------------------------------------
+#1403
+-------------------------------------------------------------------------------
+Compilation.tests.cpp:<line number>
+...............................................................................
+
+Compilation.tests.cpp:<line number>: PASSED:
+  REQUIRE( h1 == h2 )
+with expansion:
+  [1403 helper] == [1403 helper]
 
 -------------------------------------------------------------------------------
 #748 - captures with unexpected exceptions
@@ -167,8 +165,7 @@ due to unexpected exception with messages:
 Exception.tests.cpp:<line number>
 ...............................................................................
 
-Exception.tests.cpp:<line number>:
-PASSED:
+Exception.tests.cpp:<line number>: PASSED:
   REQUIRE_THROWS( thisThrows() )
 with message:
   answer := 42
@@ -179,8 +176,7 @@ with message:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( 42 == f )
 with expansion:
   42 == {?}
@@ -191,38 +187,31 @@ with expansion:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( a == t )
 with expansion:
   3 == 3
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   CHECK( a == t )
 with expansion:
   3 == 3
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE_THROWS( throws_int(true) )
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   CHECK_THROWS_AS( throws_int(true), int )
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE_NOTHROW( throws_int(false) )
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE_THAT( "aaa", Catch::EndsWith("aaa") )
 with expansion:
   "aaa" ends with: "aaa"
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( templated_tests<int>(3) )
 with expansion:
   true
@@ -238,8 +227,7 @@ Misc.tests.cpp:<line number>: FAILED:
 with expansion:
   1 == 0
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
   REQUIRE( errno == 1 )
 with expansion:
   1 == 1
@@ -250,8 +238,7 @@ with expansion:
 Compilation.tests.cpp:<line number>
 ...............................................................................
 
-Compilation.tests.cpp:<line number>:
-PASSED:
+Compilation.tests.cpp:<line number>: PASSED:
   REQUIRE( x == 4 )
 with expansion:
   {?} == 4
@@ -265,8 +252,7 @@ with message:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   Everything is OK
 
@@ -277,8 +263,7 @@ with message:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   Everything is OK
 
@@ -289,8 +274,7 @@ with message:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   Everything is OK
 
@@ -301,8 +285,7 @@ with message:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   Everything is OK
 
@@ -313,8 +296,7 @@ with message:
 Misc.tests.cpp:<line number>
 ...............................................................................
 
-Misc.tests.cpp:<line number>:
-PASSED:
+Misc.tests.cpp:<line number>: PASSED:
 with message:
   Everything is OK
 
@@ -341,6 +323,6 @@ with expansion:
   !true
 
 ===============================================================================
-test cases: 14 | 11 passed | 1 failed | 2 failed as expected
-assertions: 38 | 31 passed | 4 failed | 3 failed as expected
+test cases: 15 | 12 passed | 1 failed | 2 failed as expected
+assertions: 39 | 32 passed | 4 failed | 3 failed as expected
 
