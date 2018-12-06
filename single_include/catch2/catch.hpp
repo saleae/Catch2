@@ -11744,7 +11744,7 @@ namespace Catch {
                 // is terrible and we should move on.
                 // TBD: How to signal that the measured resolution is probably wrong?
                 if (ticks > startTime + 3 * nanosecondsInSecond) {
-                    return sum / i;
+                    return sum / i; // NOLINT: Division by zero [clang-analyzer-core.DivideZero]
                 }
             }
 
